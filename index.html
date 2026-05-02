@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Poojitha Yannam | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --white: #ffffff; --off-white: #f4f7fb;
+      --blue-light: #e8f0fe; --blue-deep: #1a4f8a;
+      --blue-accent: #2563eb; --text-dark: #0f1c2e;
+      --text-muted: #607080; --border: #d0dce8;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--text-dark); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 6vw; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--blue-deep); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--blue-accent); }
+
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 100px 6vw 60px;
+      background: linear-gradient(135deg, #f4f7fb 0%, #e8f0fe 60%, #dbeafe 100%);
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, #bfdbfe 0%, transparent 70%);
+      border-radius: 50%; animation: float 6s ease-in-out infinite;
+    }
+    #hero::after {
+      content: ''; position: absolute; bottom: -60px; left: 10%;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, #dbeafe 0%, transparent 70%);
+      border-radius: 50%; animation: float 8s ease-in-out infinite reverse;
+    }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
+    .hero-content { max-width: 660px; position: relative; z-index: 1; animation: fadeUp 0.9s ease both; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    .hero-tag {
+      display: inline-block; background: var(--blue-accent); color: #fff;
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 4px 14px; border-radius: 20px; margin-bottom: 1.2rem;
+    }
+    .hero-name { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem,6vw,4rem); line-height: 1.1; color: var(--blue-deep); margin-bottom: 0.4rem; }
+    .hero-name span { color: var(--blue-accent); }
+    .hero-role { font-size: 1.1rem; font-weight: 300; color: var(--text-muted); margin-bottom: 1.2rem; }
+    .hero-bio { font-size: 1rem; color: #445566; max-width: 540px; margin-bottom: 2rem; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.4rem; }
+    .btn-primary {
+      background: var(--blue-accent); color: #fff; padding: 12px 28px;
+      border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.95rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--blue-deep); transform: translateY(-2px); }
+    .btn-outline {
+      border: 2px solid var(--blue-accent); color: var(--blue-accent); padding: 10px 28px;
+      border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .btn-outline:hover { background: var(--blue-light); }
+    .hero-contacts { display: flex; flex-wrap: wrap; gap: 1.2rem; }
+    .hero-contacts a { display: flex; align-items: center; gap: 0.4rem; font-size: 0.88rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .hero-contacts a:hover { color: var(--blue-accent); }
+
+    section { padding: 90px 6vw; }
+    .section-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue-accent); margin-bottom: 0.5rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,4vw,2.5rem); color: var(--blue-deep); margin-bottom: 0.8rem; }
+    .section-desc { color: var(--text-muted); font-size: 1rem; max-width: 560px; margin-bottom: 3rem; }
+
+    #projects { background: var(--off-white); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.8rem; }
+    .project-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+      transition: box-shadow 0.3s, transform 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 4px; background: linear-gradient(90deg, var(--blue-accent), #60a5fa);
+    }
+    .project-card:hover { box-shadow: 0 12px 36px rgba(37,99,235,0.12); transform: translateY(-5px); }
+    .project-icon { width: 48px; height: 48px; background: var(--blue-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.2rem; }
+    .project-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--blue-deep); margin-bottom: 0.5rem; }
+    .project-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.2rem; line-height: 1.65; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag { background: var(--blue-light); color: var(--blue-deep); font-size: 0.75rem; font-weight: 500; padding: 3px 11px; border-radius: 20px; }
+
+    #skills { background: var(--white); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
+    .skill-group { background: var(--off-white); border: 1px solid var(--border); border-radius: 14px; padding: 1.6rem; }
+    .skill-group-title { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue-accent); margin-bottom: 1rem; }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill { background: var(--white); border: 1px solid var(--border); color: var(--text-dark); font-size: 0.82rem; padding: 4px 12px; border-radius: 20px; }
+
+    #education { background: var(--off-white); }
+    .timeline { display: flex; flex-direction: column; gap: 1.5rem; max-width: 760px; }
+    .timeline-item {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.8rem;
+      border-left: 4px solid var(--blue-accent);
+      transition: box-shadow 0.2s;
+    }
+    .timeline-item:hover { box-shadow: 0 6px 24px rgba(37,99,235,0.09); }
+    .timeline-date { font-size: 0.8rem; color: var(--blue-accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+    .timeline-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--blue-deep); margin-bottom: 0.2rem; }
+    .timeline-sub { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.6rem; }
+    .timeline-body { font-size: 0.9rem; color: #445566; line-height: 1.65; }
+
+    #contact { background: var(--white); text-align: center; }
+    .contact-card {
+      max-width: 560px; margin: 0 auto;
+      background: linear-gradient(135deg, #e8f0fe, #dbeafe);
+      border: 1px solid var(--border); border-radius: 20px; padding: 3rem 2rem;
+    }
+    .contact-card p { color: var(--text-muted); font-size: 1rem; margin-top: 0.8rem; }
+    .contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: var(--white); border: 1px solid var(--border);
+      color: var(--blue-deep); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500;
+      padding: 10px 20px; border-radius: 10px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .contact-link:hover { background: var(--blue-light); transform: translateY(-2px); }
+
+    footer { background: var(--blue-deep); color: #a8c4e0; text-align: center; padding: 1.6rem; font-size: 0.85rem; }
+    footer span { color: #fff; }
+
+    @media(max-width:640px) {
+      .nav-links { gap: 1rem; }
+      .nav-links li:nth-child(n+4) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Poojitha Yannam</div>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-content">
+    <span class="hero-tag">AI &amp; IT Engineer</span>
+    <h1 class="hero-name">Poojitha <span>Yannam</span></h1>
+    <p class="hero-role">Final-Year B.Tech · Information Technology · CGPA 8.6</p>
+    <p class="hero-bio">
+      Final-year B.Tech student with hands-on experience in Python, Machine Learning, and Salesforce.
+      Passionate about building intelligent systems and AI-driven solutions.
+      Currently seeking entry-level roles in Software or AI.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View My Projects</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+    <div class="hero-contacts">
+      <a href="mailto:poojithayannam25@gmail.com">📧 poojithayannam25@gmail.com</a>
+      <a href="https://github.com/poojithayannam" target="_blank">💻 GitHub</a>
+      <a href="https://www.linkedin.com/in/poojitha-yannam-800b50293" target="_blank">🔗 LinkedIn</a>
+      <a href="tel:9032339321">📞 9032339321</a>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <p class="section-label">What I've Built</p>
+  <h2 class="section-title">Projects</h2>
+  <p class="section-desc">A collection of AI and software projects I've built during my academic journey and internships.</p>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-icon">🎓</div>
+      <h3 class="project-title">Intelligent Feedback Collection &amp; Sentiment Analysis</h3>
+      <p class="project-desc">Full-stack AI-powered web app that collects feedback and performs sentiment analysis using NLP. Built with React, Node.js, and SQLite with visual dashboards.</p>
+      <div class="project-tags">
+        <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">NLP</span><span class="tag">SQLite</span><span class="tag">Recharts</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🎫</div>
+      <h3 class="project-title">AI-Powered Knowledge Engine for Ticket Resolution</h3>
+      <p class="project-desc">An AI-based system to classify support tickets and suggest automated resolutions using Python and machine learning. Improves efficiency and customer satisfaction.</p>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">Machine Learning</span><span class="tag">NLP</span><span class="tag">Classification</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">📧</div>
+      <h3 class="project-title">Spam Email Detector</h3>
+      <p class="project-desc">Spam email detection system using NLP and machine learning models to classify emails as spam or legitimate with high accuracy.</p>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">NLP</span><span class="tag">Scikit-learn</span><span class="tag">Classification</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🛍️</div>
+      <h3 class="project-title">Hands-Men Threads (Salesforce Capstone)</h3>
+      <p class="project-desc">Salesforce-based e-commerce project using Lightning Components, Apex automation, and custom workflows. Built during internship at Smart Bridge.</p>
+      <div class="project-tags">
+        <span class="tag">Salesforce</span><span class="tag">Lightning</span><span class="tag">Apex</span><span class="tag">Workflows</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🤖</div>
+      <h3 class="project-title">Neural AI Personal Portfolio</h3>
+      <p class="project-desc">Personal AI portfolio website built with HTML, CSS, and JavaScript showcasing projects with interactive UI features and smooth animations.</p>
+      <div class="project-tags">
+        <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="skills">
+  <p class="section-label">What I Know</p>
+  <h2 class="section-title">Skills</h2>
+  <p class="section-desc">Technologies and tools I've worked with across my academics and internships.</p>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">💻 Programming</div>
+      <div class="skill-pills">
+        <span class="pill">Python</span><span class="pill">SQL</span><span class="pill">JavaScript</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">🤖 AI / ML</div>
+      <div class="skill-pills">
+        <span class="pill">Machine Learning</span><span class="pill">NLP</span><span class="pill">Scikit-learn</span><span class="pill">Pandas</span><span class="pill">NumPy</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">🌐 Web</div>
+      <div class="skill-pills">
+        <span class="pill">HTML5</span><span class="pill">CSS3</span><span class="pill">React</span><span class="pill">Node.js</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">☁️ Salesforce</div>
+      <div class="skill-pills">
+        <span class="pill">Lightning Components</span><span class="pill">Apex Automation</span><span class="pill">Workflows</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">🛠️ Tools</div>
+      <div class="skill-pills">
+        <span class="pill">GitHub</span><span class="pill">VS Code</span><span class="pill">Jupyter Notebook</span><span class="pill">SQLite</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">🌍 Languages</div>
+      <div class="skill-pills">
+        <span class="pill">Telugu (Native)</span><span class="pill">English (Fluent)</span><span class="pill">Hindi (Basic)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <p class="section-label">My Journey</p>
+  <h2 class="section-title">Experience &amp; Education</h2>
+  <p class="section-desc">Internships and academic milestones that shaped my career.</p>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-date">Oct 2025 – Dec 2025 · Internship</div>
+      <div class="timeline-title">Artificial Intelligence Intern — Infosys Springboard</div>
+      <div class="timeline-sub">Infosys Ltd. · Virtual</div>
+      <div class="timeline-body">Handled customer support tickets by identifying issues and providing timely solutions. Improved resolution workflows using AI-based insights, increasing efficiency and customer satisfaction.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">May 2025 – Jul 2025 · Internship</div>
+      <div class="timeline-title">Salesforce Developer Intern — Smart Bridge</div>
+      <div class="timeline-sub">Virtual</div>
+      <div class="timeline-body">Developed the "Hands-Men Threads" capstone project using Lightning Components, Apex automation, and custom workflows. Completed Trailhead modules on custom objects and fields.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">2022 – 2026 · B.Tech</div>
+      <div class="timeline-title">Information Technology — DVR &amp; Dr. HS MIC College of Technology</div>
+      <div class="timeline-sub">Kanchikacherla, Andhra Pradesh · CGPA: 8.6</div>
+      <div class="timeline-body">Specializing in AI, Machine Learning, and full-stack web development. Capstone project: Intelligent Feedback Collection and Sentiment Analysis using AI.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">2022 · Class XII</div>
+      <div class="timeline-title">Vijaya Junior College</div>
+      <div class="timeline-sub">GPA: 85%</div>
+      <div class="timeline-body"></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">2020 · Class X</div>
+      <div class="timeline-title">Z.P. High School</div>
+      <div class="timeline-sub">Percentage: 96%</div>
+      <div class="timeline-body"></div>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact">
+  <p class="section-label">Say Hello</p>
+  <h2 class="section-title">Contact Me</h2>
+  <div class="contact-card">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--blue-deep);">Let's Connect!</h3>
+    <p>I'm actively looking for entry-level roles in Software or AI. Feel free to reach out!</p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:poojithayannam25@gmail.com">📧 Email Me</a>
+      <a class="contact-link" href="https://www.linkedin.com/in/poojitha-yannam-800b50293" target="_blank">🔗 LinkedIn</a>
+      <a class="contact-link" href="https://github.com/poojithayannam" target="_blank">💻 GitHub</a>
+      <a class="contact-link" href="tel:9032339321">📞 Call Me</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built with ❤️ by <span>Poojitha Yannam</span> · 2025
+</footer>
+
+</body>
+</html>
